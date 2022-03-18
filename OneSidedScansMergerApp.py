@@ -6,6 +6,7 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 #import filedialog module
 from tkinter import filedialog
 from pathlib import Path
+import webbrowser
 
 filename1=""
 filename2=""
@@ -93,7 +94,8 @@ def createPDF():
         error_label.configure(text="Merged PDF successfully exported with filename: "+outfile)
         outputStream.close()
 
-
+def open_github():
+    webbrowser.open_new("https://github.com/Persie0/One_Sided_Scan_Merger_App")
 
 if __name__ == "__main__":        
     
@@ -104,7 +106,7 @@ if __name__ == "__main__":
     window.title("One Sided Scan Merger")
     
     #set window size
-    window.geometry("950x200")
+    window.geometry("950x250")
     
     #set window background color
     window.config(background = "#272727")
@@ -131,6 +133,9 @@ if __name__ == "__main__":
     # create browse button
     browse_button2 = Button(window, text="Select", command=browseFiles2)
     browse_button2.grid(column=2, row=3, padx=(0, 40), pady=(20, 5), ipadx=15)
+
+    link1  = Button(text="Github page", command=open_github, fg="blue", background="#272727", borderwidth=0)
+    link1.grid(column=1, row=7)
 
     error_label = Label(window, text="", height=4, fg="white",
                             background="#272727")

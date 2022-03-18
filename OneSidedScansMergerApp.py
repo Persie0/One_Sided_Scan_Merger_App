@@ -14,23 +14,23 @@ filename2=""
 #function for opening the file explorer window
 def browseFiles():
     filename = filedialog.askopenfilename(initialdir = str(Path.home() / "Downloads"),
-                                          title = "Select a File",
+                                          title = "Datei auswählen",
                                           filetypes = (("Text files", "*.pdf*"),
                                                        ("all files", "*.*")))
     global filename1
     filename1 = filename
     #change label contents
-    filename_label.configure(text="File Selected:\n" + filename)
+    filename_label.configure(text="Ausgewählt:\n" + filename)
 
 def browseFiles2():
     filename = filedialog.askopenfilename(initialdir = str(Path.home() / "Downloads"),
-                                          title = "Select a File",
+                                          title = "Datei auswählen",
                                           filetypes = (("Text files", "*.pdf*"),
                                                        ("all files", "*.*")))
     global filename2
     filename2 = filename
     #change label contents
-    filename_label2.configure(text="File Selected:\n" + filename)
+    filename_label2.configure(text="Ausgewählt:\n" + filename)
 
 def ReadPdfFile( fName ):
     found = False
@@ -70,7 +70,7 @@ def createPDF():
         pdf1 = PdfFileReader(open(filename1, 'rb' ))
         pdf2 = PdfFileReader(open(filename2, 'rb' ))
     except Exception as e:
-        error_label.configure(text="Error:" + str(e) + "\nno files chosen or one of your PDFs might be damaged")
+        error_label.configure(text="Fehler:" + str(e) + "\nkeine Dateien ausgewählt/Dateien beschädigt")
     else:
         outfile = str(Path.home() / "Downloads" / "MERGED.pdf")
         outfile=uniquify(outfile)
@@ -91,7 +91,7 @@ def createPDF():
 
         #pdf2 = revPdf.write(outputStream)
         outPdf.write(outputStream)
-        error_label.configure(text="Merged PDF successfully exported with filename: "+outfile)
+        error_label.configure(text="Zusammengefügt mit Dateinamen: "+outfile)
         outputStream.close()
 
 def open_github():
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     window = Tk()
         
     #set window title
-    window.title("One Sided Scan Merger")
+    window.title("Einseitige Scans Zusammenfüger")
     
     #set window size
     window.geometry("950x250")
@@ -112,18 +112,18 @@ if __name__ == "__main__":
     window.config(background = "#272727")
     
     #create a file explorer label
-    prompt_label = Label(window, text = "Front Pages of scanned documents (Page 1,3,5,...)", height = 4, fg = "white", background = "#272727")
+    prompt_label = Label(window, text = "Vorderseiten der gescannten Dokumente (Seiten 1,3,5,...n-3, n-1)", height = 4, fg = "white", background = "#272727")
     filename_label = Label(window, text="", height=4, fg="white",
                          background="#272727")
     prompt_label.grid(column=1, row=1, padx=(30,10), pady=(0,0), rowspan=2)
     filename_label.grid(column=3, row=1, padx=(30, 10), pady=(0, 0), rowspan=2)
 
     #create browse button
-    browse_button = Button(window, text = "Select", command = browseFiles)
+    browse_button = Button(window, text = "Datei Auswählen", command = browseFiles)
     browse_button.grid(column=2, row=1, padx=(0,40), pady=(20,5), ipadx=15)
 
     # create a file explorer label
-    prompt_label2 = Label(window, text="Back Pages in Reversed Order of scanned documents (Page n,n-2,...,6,4,2):", height=4, fg="white",
+    prompt_label2 = Label(window, text="Rückseiten in umgekehrter Reihenfolge (Page n,n-2,...,6,4,2):", height=4, fg="white",
                          background="#272727")
     filename_label2 = Label(window, text="", height=4, fg="white",
                            background="#272727")
@@ -131,17 +131,17 @@ if __name__ == "__main__":
     filename_label2.grid(column=3, row=3, padx=(30, 10), pady=(0, 0), rowspan=2)
 
     # create browse button
-    browse_button2 = Button(window, text="Select", command=browseFiles2)
+    browse_button2 = Button(window, text="Datei Auswählen", command=browseFiles2)
     browse_button2.grid(column=2, row=3, padx=(0, 40), pady=(20, 5), ipadx=15)
 
-    link1  = Button(text="Github page", command=open_github, fg="blue", background="#272727", borderwidth=0)
+    link1  = Button(text="Github", command=open_github, fg="blue", background="#272727", borderwidth=0)
     link1.grid(column=1, row=7)
 
     error_label = Label(window, text="", height=4, fg="white",
                             background="#272727")
     error_label.grid(column=1, row=5, padx=(30, 10), pady=(0, 0), rowspan=2)
 
-    merge_button = Button(window, text="Merge", command=createPDF)
+    merge_button = Button(window, text="Zusammenfügen", command=createPDF)
     merge_button.grid(column=7, row=5, padx=(0, 40), pady=(20, 5), ipadx=15)
 
 

@@ -106,7 +106,7 @@ if __name__ == "__main__":
     window.title("One Sided Scan Merger")
     
     #set window size
-    window.geometry("950x250")
+    window.geometry("1150x250")
     
     #set window background color
     window.config(background = "#272727")

@@ -1,4 +1,4 @@
-# Download link
+# Download .exe
 https://github.com/Persie0/One_Sided_Scan_Merger_App/raw/folderMerge/dist/OneSidedScansMergerApp.exe
 
 # Info

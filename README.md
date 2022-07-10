@@ -1,3 +1,7 @@
+# Download link
+https://github.com/Persie0/One_Sided_Scan_Merger_App/raw/folderMerge/dist/OneSidedScansMergerApp.exe
+
+# Info
 With this application (only .exe as release, but you can make one yourself for other platforms) you can merge pdfs from a one sided scanner on Windows, Linux, Mac written in Python with Tkinter.
 You can merge the two PDF files: one containing all odd pages of a scan, one containing all even pages of a scan in reverse order.
 

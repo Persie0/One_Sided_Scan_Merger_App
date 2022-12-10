@@ -1,7 +1,7 @@
 # Download .exe file
 https://github.com/Persie0/One_Sided_Scan_Merger_App/releases/download/folderMerge/OneSidedScansMergerApp.exe
 
-![Alt text](https://github.com/Persie0/Online-Digi4school-PDF-Downloader/raw/main/2022-12-10_18-50.png)
+![Alt text](https://github.com/Persie0/One_Sided_Scan_Merger_App/raw/master/2022-12-10_18-50.png)
 
 
 # Info

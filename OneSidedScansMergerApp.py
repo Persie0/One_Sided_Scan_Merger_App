@@ -1,12 +1,14 @@
 # import components from tkinter library
-from tkinter import Tk, Label, Button
+from tkinter import Tk, Label, Button, Checkbutton, BooleanVar
 import os
+from pdf2image import convert_from_path
 from PyPDF2 import PdfFileWriter, PdfFileReader
 # import filedialog module
 from tkinter import filedialog
 from pathlib import Path
 import webbrowser
 import glob
+from PIL import Image
 
 filename1 = ""
 filename2 = ""
@@ -109,10 +111,65 @@ def createPDF():
         else:
             exeption_label.configure(text="Files dont have the same length: " + filename1 + " and " + filename2)
 
+
         # pdf2 = revPdf.write(outputStream)
         outPdf.write(outputStream)
-        error_label.configure(text="Merged PDF successfully exported with filename: " + outfile)
         outputStream.close()
+        global initial_state
+        if initial_state.get():
+            # Set the path to the PDF file
+            pdf_path = outfile
+
+            # Convert the PDF to images
+            images = convert_from_path(pdf_path)
+            # Create a PdfFileReader object for the input PDF
+            input_reader = PdfFileReader(pdf_path)
+
+            # Create a PdfFileWriter object for the output PDF
+            output_writer = PdfFileWriter()
+
+            # Iterate through the images and save them to a folder
+            for i, image in enumerate(images):
+                file_name = 'image_{}.jpg'.format(i)
+                image.save(file_name, 'JPEG')
+
+                # Set the path to the image
+                image_path =file_name
+
+                # Open the image
+                image = Image.open(image_path)
+
+                # Convert the image to grayscale
+                gray_image = image.convert('L')
+
+                # Get the width and height of the image
+                width, height = gray_image.size
+
+                # Iterate through the pixels in the image
+                num_white_pixels = 0
+                for x in range(width):
+                    for y in range(height):
+                        # Get the pixel at the current position
+                        pixel = gray_image.getpixel((x, y))
+                        # Check if the pixel is white (i.e. has a value of 255)
+                        if pixel >250:
+                            num_white_pixels += 1
+
+                # Calculate the percentage of white  pixels in the image
+                # Calculate the percentage of white  pixels in the image
+                percent_white = (num_white_pixels / (width * height))*100
+                print(file_name,percent_white)
+                # Check if the image is mostly white
+                os.remove(file_name)
+                if percent_white > 98.3:
+                    print('The image is mostly white.')
+                else:
+                    output_writer.addPage(input_reader.getPage(i))
+            # Write the output PDF
+            with open(outfile, "wb") as output_file:
+                output_writer.write(output_file)
+        error_label.configure(text="Merged PDF successfully exported with filename: " + outfile)
+
 
 
 def loopFiles():
@@ -150,6 +207,8 @@ if __name__ == "__main__":
 
     # set window background color
     window.config(background="#272727")
+    # Create a BooleanVar
+    initial_state = BooleanVar(value=True)
 
     # create a file explorer label
     prompt_label = Label(window, text="Front Pages of scanned documents (Page 1,3,5,...)", height=4, fg="white",
@@ -203,5 +262,17 @@ if __name__ == "__main__":
 
     merge_button = Button(window, text="Merge", command=createPDF)
     merge_button.grid(column=9, row=5, padx=(0, 40), pady=(20, 5), ipadx=15)
+        # Create a Label widget
+
+    # Create a Checkbutton widget
+    checkbox = Checkbutton(window, text="remove empty/white pages (takes longer)",
+                        onvalue=True, offvalue=False,
+                        variable=initial_state)
+
+    # Set the initial state of the checkbox
+    initial_state.set(True)
+
+    # Add the label and checkbox to the window
+    checkbox.grid(row=3, column=10)
 
     window.mainloop()

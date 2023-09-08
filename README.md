@@ -7,8 +7,8 @@ This Python application allows you to merge PDFs from a one-sided scanner on Win
 ## Features
 
 - Merge two PDF files:
-  - One containing all odd pages of a scan.
-  - One containing all even pages of a scan in reverse order.
+  - One containing the front pages of a scan (those are all odd pdf pages after the merge).
+  - One containing the backsides of a scan **in reverse order** (those are all even pdf pages after the merge).
 
 ## Download
 
@@ -22,7 +22,7 @@ You can download the application for Windows from the following link:
 - Easily select the two PDFs you want to merge.
 
 ## Usage
-
+0. Place your pages into the scanner/printer with all front pages facing up. Scan these front pages *(to get a PDF with all front pages in the right order)*, then remove the stack from the scanner, flip it around, and scan the back sides (to get a PDF with all back sides in the reversed order i.e. starting with th last page)*.
 1. Download the `.exe` file.
 2. Launch the application.
 3. Select the two PDF files you want to merge.
